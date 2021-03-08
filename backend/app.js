@@ -1,32 +1,39 @@
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose"); //  for MongoDB
 
 require("dotenv/config");
 const api = process.env.API_URL;
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser"); //   for middleware try in postman
+const morgan = require("morgan"); // checking the method in log
+const productsRouter = require("./routers/products");
 
-//  middleware
-
+//middlewere
 app.use(bodyParser.json());
+app.use(morgan("tiny"));
 
-// http://localhost:3000/api/v1/products
-// also used as
-// app.get(api+"/products", (req, res) => {
+// Routers
+app.use(`${api}/products`, productsRouter);
 
-app.get(`${api}/products`, (req, res) => {
-  const product = {
-    id: 1,
-    name: "hairdresser",
-    image: "some_URL",
-  };
-  res.send(product);
-});
+// Database
+mongoose
+  .connect(
+    process.env.CONNECTION_STRING,
+    // "mongodb+srv://avi:test123@cluster0.i8b1u.mongodb.net/Twigo-shopee?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      dbName: "Twigo-shopee",
+    },
+  )
+  .then(() => {
+    console.log("Database connection is ready");
+  })
+  .catch((err) => {
+    console.log("database error");
+  });
 
-app.post(`${api}/products`, (req, res) => {
-  const newProduct = req.body;
-  console.log(newProduct);
-  res.send(newProduct);
-});
+// Server
 
 app.listen(3000, () => {
   console.log("server is  running on http 3000");

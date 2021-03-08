@@ -1,19 +1,30 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose"); //  for MongoDB
-
-require("dotenv/config");
-const api = process.env.API_URL;
+const cors = require("cors");
 const bodyParser = require("body-parser"); //   for middleware try in postman
 const morgan = require("morgan"); // checking the method in log
-const productsRouter = require("./routers/products");
+require("dotenv/config");
+
+app.use(cors());
+app.options("*", cors());
 
 //middlewere
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
 
-// Routers
-app.use(`${api}/products`, productsRouter);
+//Routes
+const categoriesRoutes = require("./routes/categories");
+const productsRoutes = require("./routes/products");
+const usersRoutes = require("./routes/users");
+const ordersRoutes = require("./routes/orders");
+
+const api = process.env.API_URL;
+
+app.use(`${api}/categories`, categoriesRoutes);
+app.use(`${api}/products`, productsRoutes);
+app.use(`${api}/users`, usersRoutes);
+app.use(`${api}/orders`, ordersRoutes);
 
 // Database
 mongoose
@@ -36,6 +47,6 @@ mongoose
 // Server
 
 app.listen(3000, () => {
-  console.log("server is  running on http 3000");
+  console.log("server is  running on http localhost 3000");
   console.log(api);
 });

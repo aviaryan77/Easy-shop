@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose"); //  for MongoDB
+// mongoose.set("useFindAndModify", false);
+
 const cors = require("cors");
 const bodyParser = require("body-parser"); //   for middleware try in postman
 const morgan = require("morgan"); // checking the method in log
@@ -32,9 +34,11 @@ mongoose
     process.env.CONNECTION_STRING,
     // "mongodb+srv://avi:test123@cluster0.i8b1u.mongodb.net/Twigo-shopee?retryWrites=true&w=majority",
     {
+      keepAlive: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       dbName: "Twigo-shopee",
+      useFindAndModify: false,
     },
   )
   .then(() => {

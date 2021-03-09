@@ -6,6 +6,8 @@ const mongoose = require("mongoose"); //  for MongoDB
 const cors = require("cors");
 const bodyParser = require("body-parser"); //   for middleware try in postman
 const morgan = require("morgan"); // checking the method in log
+const errorHandler = require("./helpers/error-handler");
+const authJwt = require("./helpers/jwt");
 require("dotenv/config");
 
 app.use(cors());
@@ -14,6 +16,8 @@ app.options("*", cors());
 //middlewere
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
+app.use(authJwt());
+app.use(errorHandler);
 
 //Routes
 const categoriesRoutes = require("./routes/categories");
@@ -42,7 +46,7 @@ mongoose
     },
   )
   .then(() => {
-    console.log("Database connection is ready");
+    console.log("Database connection is ready...");
   })
   .catch((err) => {
     console.log("database error");

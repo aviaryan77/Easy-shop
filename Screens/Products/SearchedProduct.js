@@ -11,7 +11,9 @@ export const SearchedProduct = (props) => {
       {productsFiltered.length > 0 ? (
         productsFiltered.map((item) => (
           <ListItem
-            // onPress={() => {            props.navigation.navigate("Product Detail", { item: item });           }}
+            onPress={() => {
+              props.navigation.navigate("ProductDetail", { item: item });
+            }}
             key={item._id.$oid}
             avatar
           >

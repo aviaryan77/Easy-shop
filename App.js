@@ -1,21 +1,23 @@
+import "react-native-gesture-handler";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import ProductContainer from "./Screens/Products/ProductContainer";
+import { NavigationContainer } from "@react-navigation/native";
+
+// Navigators
+import { MainNavigator } from "./Navigators/MainNavigator";
+
+// Redux
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 import { Header } from "./Shared/Header";
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Header />
-      <ProductContainer />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Header />
+        <MainNavigator />
+      </NavigationContainer>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

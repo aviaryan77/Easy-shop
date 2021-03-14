@@ -6,6 +6,7 @@ import CartIcon from "../Shared/CartIcon";
 
 //Stacks
 import { HomeNavigator } from "./HomeNavigator";
+import CartNavigator from "./CartNavigator";
 import Cart from "../Screens/Cart/Cart";
 
 const Tab = createBottomTabNavigator();
@@ -37,7 +38,7 @@ export const MainNavigator = () => {
 
       <Tab.Screen
         name="Cart"
-        component={Cart}
+        component={CartNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <View>

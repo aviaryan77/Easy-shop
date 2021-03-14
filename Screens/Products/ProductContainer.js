@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     backgroundColor: "gainsboro",
   },
+
   listContainer: {
     height: height,
     flex: 1,
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flexWrap: "wrap",
     backgroundColor: "gainsboro",
+    marginBottom: 150,
   },
   center: {
     justifyContent: "center",

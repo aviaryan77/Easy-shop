@@ -1,5 +1,7 @@
 import "react-native-gesture-handler";
 import React from "react";
+
+// import { LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
 // Navigators
@@ -10,6 +12,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 import { Header } from "./Shared/Header";
+//LogBox.ignoreAllLogs(true);
 
 export default function App() {
   return (

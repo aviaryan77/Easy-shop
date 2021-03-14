@@ -1,11 +1,10 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose"); //  for MongoDB
-// mongoose.set("useFindAndModify", false);
+const mongoose = require("mongoose");
 
 const cors = require("cors");
-const bodyParser = require("body-parser"); //   for middleware try in postman
-const morgan = require("morgan"); // checking the method in log
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const errorHandler = require("./helpers/error-handler");
 const authJwt = require("./helpers/jwt");
 require("dotenv/config");
@@ -36,7 +35,7 @@ app.use(`${api}/orders`, ordersRoutes);
 mongoose
   .connect(
     process.env.CONNECTION_STRING,
-    // "mongodb+srv://avi:test123@cluster0.i8b1u.mongodb.net/Twigo-shopee?retryWrites=true&w=majority",
+    // "mongodb+srv://avi:password@cluster0.i8b1u.mongodb.net/Twigo-shopee?retryWrites=true&w=majority",
     {
       keepAlive: true,
       useNewUrlParser: true,
@@ -46,7 +45,7 @@ mongoose
     },
   )
   .then(() => {
-    console.log("Database connection is ready...");
+    console.log("Database connection is ready.....");
   })
   .catch((err) => {
     console.log("database error");

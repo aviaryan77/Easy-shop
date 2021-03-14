@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-  ScrollView,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { Container, Text, Header, Icon, Item, Input } from "native-base";
 import ProductList from "./ProductList";
 import { SearchedProduct } from "./SearchedProduct";
 import { Banner } from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
+import baseURL from "../../assets/common/baseUrl";
+import axios from "axios";
 
 var { height } = Dimensions.get("window");
 
-const data = require("../../assets/data/products.json");
-const productsCategories = require("../../assets/data/categories.json");
+//const data = require("../../assets/data/products.json");
+//const productsCategories = require("../../assets/data/categories.json");
 
 export const ProductContainer = (props) => {
   const [products, setProducts] = useState([]);
@@ -28,13 +23,28 @@ export const ProductContainer = (props) => {
   const [initialState, setInitialState] = useState([]);
 
   useEffect(() => {
-    setProducts(data);
-    setProductsFiltereded(data);
     setFocus(false);
-    setCategories(productsCategories);
-    setProductsCtg(data);
     setActive(-1);
-    setInitialState(data);
+
+    //products
+    axios
+      .get(`${baseURL}products`)
+      .then((res) => {
+        setProducts(res.data);
+        setProductsFiltereded(res.data);
+        setProductsCtg(res.data);
+        setInitialState(res.data);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+
+    //category
+    axios.get(`${baseURL}categories`).then((res) => {
+      setCategories(res.data).catch((error) => {
+        console.warn("API CALL ERROR2");
+      });
+    });
 
     return () => {
       setProducts([]);
@@ -66,7 +76,7 @@ export const ProductContainer = (props) => {
         ? [setProductsCtg(initialState), setActive(true)]
         : [
             setProductsCtg(
-              products.filter((i) => i.category.$oid === ctg),
+              products.filter((i) => i.category._id === ctg),
               setActive(true),
             ),
           ];

@@ -5,13 +5,24 @@ import ProductList from "./ProductList";
 import { SearchedProduct } from "./SearchedProduct";
 import { Banner } from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
+//import baseURL from "../../assets/common/baseUrl";
 import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
 
 var { height } = Dimensions.get("window");
 
-// const a = axios.get("https://eshop-server.herokuapp.com/api/v1/products");
-// console.warn("API response", a);
+axios.get('http://bca96fc56843.ngrok.io/api/v1/products')
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
 
 //const data = require("../../assets/data/products.json");
 //const productsCategories = require("../../assets/data/categories.json");
@@ -31,7 +42,7 @@ export const ProductContainer = (props) => {
 
     //products
     axios
-      .get(`${baseURL}products`)
+      .get("http://bca96fc56843.ngrok.io/api/v1/products")
       .then((res) => {
         setProducts(res.data);
         setProductsFiltereded(res.data);
@@ -44,7 +55,7 @@ export const ProductContainer = (props) => {
 
     //category
     axios
-      .get(`${baseURL}categories`)
+      .get("http://bca96fc56843.ngrok.io/api/v1/categories")
       .then((res) => {
         setCategories(res.data);
       })

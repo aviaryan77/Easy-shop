@@ -14,6 +14,8 @@ import store from "./redux/store";
 import { Header } from "./Shared/Header";
 //LogBox.ignoreAllLogs(true);
 
+
+
 export default function App() {
   return (
     <Provider store={store}>

@@ -10,6 +10,9 @@ import axios from "axios";
 
 var { height } = Dimensions.get("window");
 
+// const a = axios.get("https://eshop-server.herokuapp.com/api/v1/products");
+// console.warn("API response", a);
+
 //const data = require("../../assets/data/products.json");
 //const productsCategories = require("../../assets/data/categories.json");
 
@@ -40,11 +43,14 @@ export const ProductContainer = (props) => {
       });
 
     //category
-    axios.get(`${baseURL}categories`).then((res) => {
-      setCategories(res.data).catch((error) => {
+    axios
+      .get(`${baseURL}categories`)
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((error) => {
         console.warn("API CALL ERROR2");
       });
-    });
 
     return () => {
       setProducts([]);
@@ -123,8 +129,10 @@ export const ProductContainer = (props) => {
                 return (
                   <ProductList
                     navigation={props.navigation}
-                    key={item._id.$oid}
+                    key={item.name}
                     item={item}
+                    //  key={item._id.$oid}
+                    //  item={item}
                   />
                 );
               })}

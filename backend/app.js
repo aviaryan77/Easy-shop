@@ -51,9 +51,16 @@ mongoose
     console.log("database error");
   });
 
-// Server
+// DEVELOPMENT
 
-app.listen(3000, () => {
-  console.log("server is  running on http localhost 3000");
-  console.log(api);
+// app.listen(3000, () => {
+//   console.log("server is  running on http localhost 3000");
+//   console.log(api);
+// });
+
+// PRODUCTION
+
+var server = app.listen(process.env.PORT || 3000, function () {
+  var port = server.address().port;
+  console.log("Express is workin on port " + port);
 });

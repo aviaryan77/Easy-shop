@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
-import { Container, Text, Header, Icon, Item, Input } from "native-base";
+import React, { useState, useEffect , useCallback} from "react";
+import { View, StyleSheet, ScrollView, Dimensions, ActivityIndicator } from "react-native";
+import { Container, Text, Header, Icon, Item, Input} from "native-base";
 import ProductList from "./ProductList";
 import { SearchedProduct } from "./SearchedProduct";
 import { Banner } from "../../Shared/Banner";
@@ -8,21 +8,22 @@ import CategoryFilter from "./CategoryFilter";
 //import baseURL from "../../assets/common/baseUrl";
 import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
+import {useFocusEffect} from '@react-navigation/native'
 
 var { height } = Dimensions.get("window");
 
-axios.get('http://bca96fc56843.ngrok.io/api/v1/products')
-  .then(function (response) {
-    // handle success
-    console.log(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
+// axios.get('http://9bcc58b09d17.ngrok.io/api/v1/products')
+//   .then(function (response) {
+//     // handle success
+//     console.log(response);
+//   })
+//   .catch(function (error) {
+//     // handle error
+//     console.log(error);
+//   })
+//   .then(function () {
+//     // always executed
+//   });
 
 //const data = require("../../assets/data/products.json");
 //const productsCategories = require("../../assets/data/categories.json");
@@ -35,27 +36,33 @@ export const ProductContainer = (props) => {
   const [productsCtg, setProductsCtg] = useState([]);
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useFocusEffect((
+    useCallback(
+      () => {
+        setFocus(false);
+        setActive(-1);
     setFocus(false);
     setActive(-1);
 
     //products
     axios
-      .get("http://bca96fc56843.ngrok.io/api/v1/products")
+      .get("http://9bcc58b09d17.ngrok.io/api/v1/products")
       .then((res) => {
         setProducts(res.data);
         setProductsFiltereded(res.data);
         setProductsCtg(res.data);
         setInitialState(res.data);
+        setLoading(false)
       })
       .catch((error) => {
-        console.warn(error);
+        console.warn("API CALL ERROR2");
       });
 
     //category
     axios
-      .get("http://bca96fc56843.ngrok.io/api/v1/categories")
+      .get("http://9bcc58b09d17.ngrok.io/api/v1/categories")
       .then((res) => {
         setCategories(res.data);
       })
@@ -71,7 +78,10 @@ export const ProductContainer = (props) => {
       setActive();
       setInitialState();
     };
-  }, []);
+  },
+  [],
+)
+))
 
   const searchProduct = (text) => {
     setProductsFiltereded(
@@ -101,7 +111,10 @@ export const ProductContainer = (props) => {
   };
 
   return (
-    <Container>
+    <>
+    {
+      loading==false ?(
+<Container>
       <Header searchBar rounded>
         <Item>
           <Icon name="ios-search" />
@@ -142,8 +155,6 @@ export const ProductContainer = (props) => {
                     navigation={props.navigation}
                     key={item.name}
                     item={item}
-                    //  key={item._id.$oid}
-                    //  item={item}
                   />
                 );
               })}
@@ -156,8 +167,17 @@ export const ProductContainer = (props) => {
         </ScrollView>
       )}
     </Container>
-  );
+      ) :(
+        <Container style={styles.center,  {backgroundColor:"f2f2f2"}}  >
+          <ActivityIndicator size="large" color="red"    />
+        </Container>
+      )
+    }
+    
+    </>
+  )
 };
+
 
 //export default ProductContainer;
 

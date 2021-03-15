@@ -16,5 +16,4 @@
 // baseURL ="http://f66bc129ec92.ngrok.io/api/v1/";
 // baseURL = "https://eshop-server.herokuapp.com/api/v1/";
 
-
-baseURL = "http://bca96fc56843.ngrok.io/api/v1/";
+baseURL = "http://9bcc58b09d17.ngrok.io/api/v1/";

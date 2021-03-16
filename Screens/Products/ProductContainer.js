@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
 
   listContainer: {
-    height: height,
+    //height: height,
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",

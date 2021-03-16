@@ -17,28 +17,26 @@ import baseURL from "../../assets/common/baseUrl";
 import AsyncStorage from "@react-native-community/async-storage";
 
 var { width, height } = Dimensions.get("screen");
-const ListHeader  = ()=>{
-    return(
-        <View 
-        elevation={1}
-        style={styles.listHeader}>
-            <View style={styles.headerItem}></View>
-            <View style={styles.headerItem}>
-                <Text  style={styles.text}>Name</Text>
-            </View>
-            <View style={styles.headerItem}>
-                <Text style={styles.text}>Brand</Text>
-            </View >
-            
-            <View style={styles.headerItem}>
-                <Text  style={styles.text}>Category</Text>
-            </View>
-            <View style={styles.headerItem}>
-                <Text  style={styles.text}>Price</Text>
-            </View>
-        </View>
-    )
-}
+const ListHeader = () => {
+  return (
+    <View elevation={1} style={styles.listHeader}>
+      <View style={styles.headerItem}></View>
+      <View style={styles.headerItem}>
+        <Text style={styles.text}>Name</Text>
+      </View>
+      <View style={styles.headerItem}>
+        <Text style={styles.text}>Brand</Text>
+      </View>
+
+      <View style={styles.headerItem}>
+        <Text style={styles.text}>Category</Text>
+      </View>
+      <View style={styles.headerItem}>
+        <Text style={styles.text}>Price</Text>
+      </View>
+    </View>
+  );
+};
 
 const Products = (props) => {
   const [productList, setProductList] = useState();
@@ -68,17 +66,16 @@ const Products = (props) => {
     }, [])
   );
 
-  
-const searchProduct=(text)=>{
-    if(text==""){
-        setProductFilter(productList)
+  const searchProduct = (text) => {
+    if (text == "") {
+      setProductFilter(productList);
     }
     setProductFilter(
-        productList.filter((i)=>
-        i.name.toLowerCase().includes(text.toLowerCase()))
-    )
-}
-
+      productList.filter((i) =>
+        i.name.toLowerCase().includes(text.toLowerCase())
+      )
+    );
+  };
 
   return (
     <View>
@@ -88,14 +85,14 @@ const searchProduct=(text)=>{
             <Icon name="search" />
             <Input
               placeholder="Search"
-              onChangeText={(text)=>searchProduct(text)}
+              onChangeText={(text) => searchProduct(text)}
             />
           </Item>
         </Header>
       </View>
       {loading ? (
         <View style={styles.ActivityIndicator}>
-          <ActivityIndicator  size="large" color="orange" />
+          <ActivityIndicator size="large" color="orange" />
         </View>
       ) : (
         <FlatList
@@ -112,24 +109,23 @@ const searchProduct=(text)=>{
 };
 
 const styles = StyleSheet.create({
-  listHeader:{
-      flexDirection:"row",
-      padding:5,
-      backgroundColor:"gainsboro",
-
+  listHeader: {
+    flexDirection: "row",
+    padding: 5,
+    backgroundColor: "gainsboro",
   },
-  headerItem:{
-      margin:3,
-      width: width/6,
+  headerItem: {
+    margin: 3,
+    width: width / 6,
   },
-  text:{
-      fontWeight:"bold"
+  text: {
+    fontWeight: "bold",
   },
-  ActivityIndicator:{
-      alignItems:"center",
-      justifyContent:"center",
-      height:height/2
-  }
+  ActivityIndicator: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: height / 2,
+  },
 });
 
 export default Products;

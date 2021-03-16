@@ -172,7 +172,7 @@ export const ProductContainer = (props) => {
           )}
         </Container>
       ) : (
-        <Container style={(styles.center, { backgroundColor: "f2f2f2" })}>
+        <Container style={[styles.center, { backgroundColor: "f2f2f2" }]}>
           <ActivityIndicator size="large" color="red" />
         </Container>
       )}
@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gainsboro",
   },
   center: {
+    flex:1,
     justifyContent: "center",
     alignItems: "center",
   },

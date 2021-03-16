@@ -9,6 +9,7 @@ import {
 import { Container, Text, Left, Right, H1 } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CartItem from "./CartItem";
+import EasyButton from "../../Shared/StyledComponents/EasyButton"
 
 // Redux
 import { connect } from "react-redux";
@@ -53,13 +54,33 @@ const Cart = (props) => {
               <Text style={styles.price}>&#x20B9;{total.toFixed(2)}</Text>
             </Left>
             <Right>
-              <Button title="Clear" onPress={() => props.clearCart()} />
+                <EasyButton
+                  danger
+                  medium
+                  onPress={() => props.clearCart()}
+                >
+                  <Text style={{ color: 'white' }}>Clear</Text>
+                </EasyButton>
             </Right>
             <Right>
-              <Button
-                title="Checkout"
-                onPress={() => props.navigation.navigate("Checkout")}
-              />
+              {/* {context.stateUser.isAuthenticated ? ( */}
+                <EasyButton
+                  primary
+                  medium
+                  onPress={() => props.navigation.navigate('Checkout')}
+                >
+                <Text style={{ color: 'white' }}>Checkout</Text>
+                </EasyButton>
+              {/* ) : (
+                <EasyButton
+                  secondary
+                  medium
+                  onPress={() => props.navigation.navigate('Login')}
+                >
+                <Text style={{ color: 'white' }}>Login</Text>
+                </EasyButton>
+              )} */}
+                
             </Right>
           </View>
         </Container>

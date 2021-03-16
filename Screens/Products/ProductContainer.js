@@ -1,18 +1,23 @@
-import React, { useState, useEffect , useCallback} from "react";
-import { View, StyleSheet, ScrollView, Dimensions, ActivityIndicator } from "react-native";
-import { Container, Text, Header, Icon, Item, Input} from "native-base";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
+import { Container, Text, Header, Icon, Item, Input } from "native-base";
 import ProductList from "./ProductList";
 import { SearchedProduct } from "./SearchedProduct";
 import { Banner } from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
-//import baseURL from "../../assets/common/baseUrl";
 import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
-import {useFocusEffect} from '@react-navigation/native'
+import { useFocusEffect } from "@react-navigation/native";
 
 var { height } = Dimensions.get("window");
 
-// axios.get('http://9bcc58b09d17.ngrok.io/api/v1/products')
+// axios.get('https://shopee-server.herokuapp.com/api/v1/products')
 //   .then(function (response) {
 //     // handle success
 //     console.log(response);
@@ -38,54 +43,52 @@ export const ProductContainer = (props) => {
   const [initialState, setInitialState] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useFocusEffect((
-    useCallback(
-      () => {
-        setFocus(false);
-        setActive(-1);
-    setFocus(false);
-    setActive(-1);
+  useFocusEffect(
+    useCallback(() => {
+      setFocus(false);
+      setActive(-1);
+      setFocus(false);
+      setActive(-1);
 
-    //products
-    axios
-      .get("http://9bcc58b09d17.ngrok.io/api/v1/products")
-      .then((res) => {
-        setProducts(res.data);
-        setProductsFiltereded(res.data);
-        setProductsCtg(res.data);
-        setInitialState(res.data);
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.warn("API CALL ERROR2");
-      });
+      //products
+      axios
+        //.get("https://shopee-server.herokuapp.com/api/v1/products")
+        .get(`${baseURL}products`)
+        .then((res) => {
+          setProducts(res.data);
+          setProductsFiltereded(res.data);
+          setProductsCtg(res.data);
+          setInitialState(res.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.warn("API CALL ERROR1");
+        });
 
-    //category
-    axios
-      .get("http://9bcc58b09d17.ngrok.io/api/v1/categories")
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((error) => {
-        console.warn("API CALL ERROR2");
-      });
+      //category
+      axios
+        .get(`${baseURL}categories`)
+        .then((res) => {
+          setCategories(res.data);
+        })
+        .catch((error) => {
+          console.warn("API CALL ERROR2");
+        });
 
-    return () => {
-      setProducts([]);
-      setProductsFiltereded([]);
-      setFocus();
-      setCategories([]);
-      setActive();
-      setInitialState();
-    };
-  },
-  [],
-)
-))
+      return () => {
+        setProducts([]);
+        setProductsFiltereded([]);
+        setFocus();
+        setCategories([]);
+        setActive();
+        setInitialState();
+      };
+    }, [])
+  );
 
   const searchProduct = (text) => {
     setProductsFiltereded(
-      products.filter((i) => i.name.toLowerCase().includes(text.toLowerCase())),
+      products.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()))
     );
   };
 
@@ -104,7 +107,7 @@ export const ProductContainer = (props) => {
         : [
             setProductsCtg(
               products.filter((i) => i.category._id === ctg),
-              setActive(true),
+              setActive(true)
             ),
           ];
     }
@@ -112,72 +115,70 @@ export const ProductContainer = (props) => {
 
   return (
     <>
-    {
-      loading==false ?(
-<Container>
-      <Header searchBar rounded>
-        <Item>
-          <Icon name="ios-search" />
-          <Input
-            placeholder="Search"
-            onFocus={openList}
-            onChangeText={(text) => {
-              searchProduct(text);
-            }}
-          />
-          {focus == true ? <Icon onPress={onBlur} name="ios-close" /> : null}
-        </Item>
-      </Header>
-      {focus == true ? (
-        <SearchedProduct
-          navigation={props.navigation}
-          productsFiltered={productsFiltered}
-        />
-      ) : (
-        <ScrollView>
-          <View>
-            <Banner />
-          </View>
-          <View>
-            <CategoryFilter
-              categories={categories}
-              categoryFilter={changeCtg}
-              productsCtg={productsCtg}
-              active={active}
-              setActive={setActive}
+      {loading == false ? (
+        <Container>
+          <Header searchBar rounded>
+            <Item>
+              <Icon name="ios-search" />
+              <Input
+                placeholder="Search"
+                onFocus={openList}
+                onChangeText={(text) => {
+                  searchProduct(text);
+                }}
+              />
+              {focus == true ? (
+                <Icon onPress={onBlur} name="ios-close" />
+              ) : null}
+            </Item>
+          </Header>
+          {focus == true ? (
+            <SearchedProduct
+              navigation={props.navigation}
+              productsFiltered={productsFiltered}
             />
-          </View>
-          {productsCtg.length > 0 ? (
-            <View style={styles.listContainer}>
-              {productsCtg.map((item) => {
-                return (
-                  <ProductList
-                    navigation={props.navigation}
-                    key={item.name}
-                    item={item}
-                  />
-                );
-              })}
-            </View>
           ) : (
-            <View style={[styles.center, { height: height / 2 }]}>
-              <Text> No Products Found !</Text>
-            </View>
+            <ScrollView>
+              <View>
+                <Banner />
+              </View>
+              <View>
+                <CategoryFilter
+                  categories={categories}
+                  categoryFilter={changeCtg}
+                  productsCtg={productsCtg}
+                  active={active}
+                  setActive={setActive}
+                />
+              </View>
+              {productsCtg.length > 0 ? (
+                <View style={styles.listContainer}>
+                  {productsCtg.map((item) => {
+                    return (
+                      <ProductList
+                        navigation={props.navigation}
+                        key={item._id}
+                        item={item}
+                      />
+                    );
+                  })}
+                </View>
+              ) : (
+                <View style={[styles.center, { height: height / 2 }]}>
+                  <Text> No Products Found !</Text>
+                </View>
+              )}
+            </ScrollView>
           )}
-        </ScrollView>
-      )}
-    </Container>
-      ) :(
-        <Container style={styles.center,  {backgroundColor:"f2f2f2"}}  >
-          <ActivityIndicator size="large" color="red"    />
         </Container>
-      )
-    }
-    
+      ) : (
+        <Container style={(styles.center, { backgroundColor: "f2f2f2" })}>
+          <ActivityIndicator size="large" color="red" />
+        </Container>
+      )}
     </>
-  )
+  );
 };
-
 
 //export default ProductContainer;
 

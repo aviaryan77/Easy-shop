@@ -14,7 +14,7 @@ import store from "./redux/store";
 import { Header } from "./Shared/Header";
 //LogBox.ignoreAllLogs(true);
 
-
+import Toast from "react-native-toast-message";
 
 export default function App() {
   return (
@@ -22,6 +22,7 @@ export default function App() {
       <NavigationContainer>
         <Header />
         <MainNavigator />
+        <Toast ref={(ref) => Toast.setRef(ref)} />
       </NavigationContainer>
     </Provider>
   );

@@ -14,16 +14,21 @@ import store from "./redux/store";
 import { Header } from "./Shared/Header";
 //LogBox.ignoreAllLogs(true);
 
+// Context API
+import Auth from "./Context/store/Auth";
+
 import Toast from "react-native-toast-message";
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Header />
-        <MainNavigator />
-        <Toast ref={(ref) => Toast.setRef(ref)} />
-      </NavigationContainer>
-    </Provider>
+    <Auth>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Header />
+          <MainNavigator />
+          <Toast ref={(ref) => Toast.setRef(ref)} />
+        </NavigationContainer>
+      </Provider>
+    </Auth>
   );
 }

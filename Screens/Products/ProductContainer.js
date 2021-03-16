@@ -15,7 +15,7 @@ import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";
 
-var { height } = Dimensions.get("window");
+var { height } = Dimensions.get("screen");
 
 // axios.get('https://shopee-server.herokuapp.com/api/v1/products')
 //   .then(function (response) {
@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flexWrap: "wrap",
     backgroundColor: "gainsboro",
-    marginBottom: 150,
   },
   center: {
     justifyContent: "center",

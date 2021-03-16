@@ -91,14 +91,13 @@ const Register = (props) => {
           {error ? <Error message={error} /> : null}
         </View>
         <View>
-          <Button onPress={() => register()}>
+          <Button title="Register" onPress={() =>register()}>
             <Text style={{ color: "white" }}>Register</Text>
           </Button>
         </View>
         <View>
           <Button
-            large
-            secondary
+          title="Login"
             onPress={() => props.navigation.navigate("Login")}
           >
             <Text style={{ color: "white" }}>Back to Login</Text>

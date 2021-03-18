@@ -28,7 +28,7 @@ export const SearchedProduct = (props) => {
             </Left>
             <Body>
               <Text>{item.name}</Text>
-              <Text note>{item.description}</Text>
+              <Text numberOfLines={2} ellipsizeMode="tail" note>{item.description}</Text>
             </Body>
           </ListItem>
         ))

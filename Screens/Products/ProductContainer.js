@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-  ActivityIndicator,
-} from "react-native";
-import { Container, Text, Header, Icon, Item, Input } from "native-base";
+import { View, StyleSheet, ScrollView, Dimensions , Button} from "react-native";
+import { Loader } from "../../Shared/Loader";
+import { Container, Text, Header, Item, Input } from "native-base";
 import ProductList from "./ProductList";
 import { SearchedProduct } from "./SearchedProduct";
 import { Banner } from "../../Shared/Banner";
@@ -14,7 +9,9 @@ import CategoryFilter from "./CategoryFilter";
 import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";
+import { Searchbar } from "react-native-paper";
 
+import Icon from "react-native-vector-icons/FontAwesome";
 var { height } = Dimensions.get("screen");
 
 // axios.get('https://shopee-server.herokuapp.com/api/v1/products')
@@ -117,7 +114,7 @@ export const ProductContainer = (props) => {
     <>
       {loading == false ? (
         <Container>
-          <Header searchBar rounded>
+          {/* <Header searchBar rounded>
             <Item>
               <Icon name="ios-search" />
               <Input
@@ -131,12 +128,26 @@ export const ProductContainer = (props) => {
                 <Icon onPress={onBlur} name="ios-close" />
               ) : null}
             </Item>
-          </Header>
-          {focus == true ? (
+          </Header> */}
+          <Searchbar
+            placeholder="Search"
+            onFocus={openList}
+            
+            returnKeyType="next"
+
+
+            onChangeText={(text) => {
+              searchProduct(text);
+            }}
+            clearIcon="shopping-search"
+          />
+          {focus ===true ? (<>
+            <Button title="clear" onPress={onBlur} />
             <SearchedProduct
               navigation={props.navigation}
               productsFiltered={productsFiltered}
             />
+            </>
           ) : (
             <ScrollView>
               <View>
@@ -173,14 +184,12 @@ export const ProductContainer = (props) => {
         </Container>
       ) : (
         <Container style={[styles.center, { backgroundColor: "f2f2f2" }]}>
-          <ActivityIndicator size="large" color="red" />
+          <Loader />
         </Container>
       )}
     </>
   );
 };
-
-//export default ProductContainer;
 
 const styles = StyleSheet.create({
   container: {
@@ -197,7 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gainsboro",
   },
   center: {
-    flex:1,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

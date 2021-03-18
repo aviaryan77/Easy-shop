@@ -3,7 +3,6 @@ import {
   View,
   Dimensions,
   StyleSheet,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import { Container, Text, Left, Right, H1 } from "native-base";

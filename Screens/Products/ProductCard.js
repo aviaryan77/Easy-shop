@@ -35,12 +35,13 @@ const ProductCard = (props) => {
       <Text style={styles.title}>
         {name.length > 15 ? name.substring(0, 15 - 3) + "..." : name}
       </Text>
+      <View style={styles.summary}>
       <Text style={styles.price}>&#x20B9; {price}</Text>
       {countInStock > 0 ? (
         <View style={{ marginBottom: 60 }}>
         <EasyButton 
         primary
-        medium
+        xs
         onPress={() => {
             props.addItemToCart(props),
             Toast.show({
@@ -57,6 +58,7 @@ const ProductCard = (props) => {
       ) : (
         <Text style={{ marginTop: 20 }}>Currently Unailable</Text>
       )}
+      </View>
     </View>
   );
 };
@@ -87,10 +89,10 @@ const styles = StyleSheet.create({
     height: width / 1.7 - 30,
     backgroundColor: "transparent",
     position: "absolute",
-    top: -45,
+   // top: -45,
   },
   card: {
-    marginBottom: 10,
+    marginBottom: 60,
     height: width / 2 - 20 - 90,
     backgroundColor: "transparent",
     width: width / 2 - 20 - 10,
@@ -100,9 +102,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "center",
   },
+  summary:{
+flexDirection:"row",
+justifyContent: "space-between",
+
+  },
   price: {
     fontSize: 20,
     color: "orange",
-    marginTop: 10,
+    padding:10,
   },
 });

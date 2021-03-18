@@ -52,7 +52,7 @@ export const MainNavigator = () => {
           ),
         }}
       />
-      {/* {context.stateUser.user.isAdmin == true ? (
+      {context.stateUser.user.isAdmin == true ? (
         <Tab.Screen
           name="Admin"
           component={AdminNavigator}
@@ -62,9 +62,9 @@ export const MainNavigator = () => {
             ),
           }}
         />
-      ) : null} */}
+      ) : null}
 
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Admin"
           component={AdminNavigator}
           options={{
@@ -73,7 +73,7 @@ export const MainNavigator = () => {
             ),
           }}
         />
-      
+       */}
 
       <Tab.Screen
         name="User"

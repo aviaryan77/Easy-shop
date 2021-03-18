@@ -26,7 +26,7 @@ export const Banner = (props) => {
             style={{ height: width / 2 }}
             showButtons={false}
             autoplay={true}
-            autoplayTimeout={1.5}
+            autoplayTimeout={2}
           >
             {bannerData.map((item) => {
               return (

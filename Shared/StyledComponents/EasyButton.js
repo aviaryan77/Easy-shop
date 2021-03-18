@@ -37,6 +37,11 @@ const EasyButton = styled.TouchableOpacity`
     css`
       width: 40px;
     `}
+    ${(props) =>
+    props.xs &&
+    css`
+      width: 60px;
+    `}
 `;
 
 export default EasyButton;

@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   title: {
     backgroundColor: "#62B1F6",
-    padding: 5, 
+    padding: 5
   },
   priceContainer: {
     marginTop: 10,

@@ -12,7 +12,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { Searchbar } from "react-native-paper";
 
 import Icon from "react-native-vector-icons/FontAwesome";
-var { height } = Dimensions.get("screen");
+var { height, width } = Dimensions.get("screen");
 
 // axios.get('https://shopee-server.herokuapp.com/api/v1/products')
 //   .then(function (response) {
@@ -130,6 +130,7 @@ export const ProductContainer = (props) => {
             </Item>
           </Header> */}
           <Searchbar
+          
             placeholder="Search"
             onFocus={openList}
             
@@ -210,4 +211,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
 });

@@ -29,7 +29,7 @@ const UserProfile = (props) => {
         AsyncStorage.getItem("jwt")
             .then((res) => {
                 axios
-                    .get(`${baseURL}users/${context.stateUser.user.sub}`, {
+                    .get(`${baseURL}users/${context.stateUser.user.userId}`, {
                         headers: { Authorization: `Bearer ${res}` },
                     })
                     .then((user) => setUserProfile(user.data))

@@ -36,6 +36,7 @@
     "react-native-toast-message": "^1.4.9",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
+    "react-particles-js": "^3.4.1",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
